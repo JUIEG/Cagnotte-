@@ -6,6 +6,7 @@ from domain import (
     ajouter_depense, supprimer_depense,
     calculer, liste
 )
+from domain import supprimer_depense as supprimer_depense_domain
 
 @click.group()
 def cli():
@@ -29,11 +30,13 @@ def delete(nom):
 def ajouter(cagnotte, nom, montant, date_depense):
     click.echo(ajouter_depense(cagnotte, nom, montant, date_depense))
 
-@cli.command()
+
+@cli.command(name="supprimer_depense")
 @click.argument("cagnotte")
 @click.option("--nom", prompt="Nom du participant")
-def supprimer_depense(cagnotte, nom):
-    depense, message = supprimer_depense(cagnotte, nom)
+def supprimer_depense_cli(cagnotte, nom):
+    """Supprimer une dépense d'un participant dans une cagnotte"""
+    depense, message = supprimer_depense_domain(cagnotte, nom)
     if depense:
         click.echo(f"Dépense trouvée : ID: {depense[0]} | Participant: {depense[1]} | Montant: {depense[2]} | Date: {depense[3]}")
     click.echo(message)
