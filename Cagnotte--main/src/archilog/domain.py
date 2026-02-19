@@ -1,8 +1,15 @@
 from repository import (
-    get_cagnotte_id, inserer_cagnotte, supprimer_cagnotte,
-    get_depense, insert_depense, update_depense, supprimer_depense,
-    get_depenses, get_depenses, get_depenses_detail
+    get_cagnotte_id,
+    inserer_cagnotte,
+    supprimer_cagnotte as supprimer_cagnotte_repo,
+    get_depense,
+    insert_depense,
+    update_depense,
+    supprimer_depense as supprimer_depense_repo,
+    get_depenses,
+    get_depenses_detail
 )
+
 
 def create_cagnotte(nom):
     if get_cagnotte_id(nom):
@@ -14,8 +21,10 @@ def supprimer_cagnotte(nom):
     cagnotte = get_cagnotte_id(nom)
     if not cagnotte:
         return "Cagnotte introuvable"
-    supprimer_cagnotte(cagnotte[0])
+
+    supprimer_cagnotte_repo(cagnotte[0])
     return f"La cagnotte '{nom}' est supprimée"
+
 
 
 def ajouter_depense(cagnotte_nom, participant, montant, date_depense):
@@ -40,14 +49,14 @@ def supprimer_depense(cagnotte_nom, participant):
     cagnotte = get_cagnotte_id(cagnotte_nom)
     if not cagnotte:
         return None, "La cagnotte n'existe pas"
-    cagnotte_id = cagnotte[0]
 
-    depense = get_depense(cagnotte_id, participant)
+    depense = get_depense(cagnotte[0], participant)
     if not depense:
-        return None, "Aucune dépense trouvée pour ce participant"
+        return None, "Aucune dépense trouvée"
 
-    supprimer_depense(cagnotte_id, participant)
+    supprimer_depense_repo(depense[0])
     return depense, "Dépense supprimée"
+
 
 
 def calculer(cagnotte_nom):
