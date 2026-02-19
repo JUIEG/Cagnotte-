@@ -1,4 +1,4 @@
-from repository import (
+from archilog.repository import (
     get_cagnotte_id,
     inserer_cagnotte,
     supprimer_cagnotte as supprimer_cagnotte_repo,

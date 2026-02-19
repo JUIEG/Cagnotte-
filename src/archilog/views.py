@@ -1,6 +1,8 @@
+from archilog.db import init_db
+from archilog.domain import create_cagnotte, ajouter_depense, liste, calculer
 from flask import Flask, render_template, request, redirect
-from db import init_db
-from domain import create_cagnotte, ajouter_depense, liste, calculer
+
+
 
 app = Flask(__name__)
 init_db()

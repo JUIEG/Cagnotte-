@@ -66,7 +66,7 @@
 # ---------------------------
 
 from sqlalchemy import select, insert, update, delete
-from db import engine, cagnotte_table, depense_table
+from archilog.db import engine, cagnotte_table, depense_table
 
 
 def get_cagnotte_id(nom):

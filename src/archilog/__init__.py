@@ -1,3 +1,6 @@
+from .db import init_db
+
+
 """
 import click
 import sqlite3
