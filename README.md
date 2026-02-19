@@ -25,4 +25,5 @@ Course & examples : [https://kathode.neocities.org](https://kathode.neocities.or
 
 $ env PYTHONPATH="src"
 $ python -m flask --app archilog.views --debug run
-# puis ouvrir http://127.0.0.1:5000
+# puis ouvrir l'url donné http://127.0.0.1:5000
+# utiliser le localhost dans l'url http://localhost:5000/

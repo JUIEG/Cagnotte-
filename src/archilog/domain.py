@@ -1,3 +1,4 @@
+#domain.py
 from archilog.repository import (
     get_cagnotte_id,
     inserer_cagnotte,
@@ -11,11 +12,14 @@ from archilog.repository import (
 )
 
 
+from archilog.repository import get_cagnotte_id, inserer_cagnotte
+
 def create_cagnotte(nom):
     if get_cagnotte_id(nom):
         return "Cette cagnotte existe déjà"
     inserer_cagnotte(nom)
     return f"Cagnotte '{nom}' créée"
+
 
 def supprimer_cagnotte(nom):
     cagnotte = get_cagnotte_id(nom)

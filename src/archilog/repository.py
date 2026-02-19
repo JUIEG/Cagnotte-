@@ -67,8 +67,10 @@
 
 from sqlalchemy import select, insert, update, delete
 from archilog.db import engine, cagnotte_table, depense_table
+from db import engine, cagnotte_table
+from sqlalchemy import select
 
-
+ # repository.py
 def get_cagnotte_id(nom):
     stmt = select(cagnotte_table.c.id).where(
         cagnotte_table.c.nom == nom
@@ -78,11 +80,21 @@ def get_cagnotte_id(nom):
         return conn.execute(stmt).fetchone()
 
 
+from sqlalchemy import select, insert
+from archilog.db import engine, cagnotte_table, depense_table
+
+def get_cagnottes():
+    stmt = select(cagnotte_table)
+    with engine.begin() as conn:
+        result = conn.execute(stmt).fetchall()
+        return [{"id": r.id, "nom": r.nom} for r in result]
+
+
 def inserer_cagnotte(nom):
     stmt = insert(cagnotte_table).values(nom=nom)
-
     with engine.begin() as conn:
         conn.execute(stmt)
+
 
 
 def supprimer_cagnotte(cagnotte_id):
@@ -112,6 +124,8 @@ def get_depense(cagnotte_id, participant):
 
     with engine.connect() as conn:
         return conn.execute(stmt).fetchone()
+
+
 
 
 def insert_depense(cagnotte_id, participant, montant, date_depense):

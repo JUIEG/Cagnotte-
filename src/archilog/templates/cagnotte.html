@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Cagnotte - {{ cagnotte.nom }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Cagnotte: {{ cagnotte.nom }}</h1>
@@ -22,42 +23,19 @@
             <th>Participant</th>
             <th>Montant</th>
             <th>Date</th>
-            <th>Actions</th>
         </tr>
         {% for depense in depenses %}
         <tr>
             <td>{{ depense.participant }}</td>
             <td>{{ depense.montant }} €</td>
             <td>{{ depense.date }}</td>
-            <td>
-                <form action="/supprimer_depense" method="post" style="display:inline">
-                    <input type="hidden" name="cagnotte" value="{{ cagnotte.nom }}">
-                    <input type="hidden" name="participant" value="{{ depense.participant }}">
-                    <button type="submit">Supprimer</button>
-                </form>
-            </td>
         </tr>
         {% else %}
         <tr>
-            <td colspan="4">Aucune dépense pour cette cagnotte.</td>
+            <td colspan="3">Aucune dépense pour cette cagnotte.</td>
         </tr>
         {% endfor %}
     </table>
-
-    <h2>Calcul des dettes</h2>
-    <form action="/calculer" method="post">
-        <input type="hidden" name="cagnotte" value="{{ cagnotte.nom }}">
-        <button type="submit">Calculer</button>
-    </form>
-
-    {% if resultat %}
-        <h3>Résultats:</h3>
-        <ul>
-            {% for ligne in resultat %}
-                <li>{{ ligne }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
 
     <p><a href="/">Retour à l'accueil</a></p>
 </body>
