@@ -8,7 +8,7 @@ from archilog.repository import (
     update_depense,
     supprimer_depense as supprimer_depense_repo,
     get_depenses,
-    get_depenses_detail
+    get_depenses_detail,
 )
 
 

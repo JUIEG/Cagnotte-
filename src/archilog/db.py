@@ -1,36 +1,3 @@
-# ---------------------------
-# ANCIENNE VERSION (sqlite3)
-# ---------------------------
-# import sqlite3
-#
-# def get_db():
-#     return sqlite3.connect("cagnotte.db")
-#
-# def init_db():
-#     db = get_db()
-#     db.execute("""
-#     CREATE TABLE IF NOT EXISTS CAGNOTTE (
-#         id INTEGER PRIMARY KEY AUTOINCREMENT,
-#         nom TEXT UNIQUE
-#     )
-#     """)
-#     db.execute("""
-#     CREATE TABLE IF NOT EXISTS DEPENSE (
-#         id INTEGER PRIMARY KEY AUTOINCREMENT,
-#         cagnotte_id INTEGER,
-#         participant TEXT,
-#         montant REAL CHECK (montant > 0),
-#         date TEXT,
-#         FOREIGN KEY(cagnotte_id) REFERENCES CAGNOTTE(id)
-#     )
-#     """)
-#     db.commit()
-
-
-# ---------------------------
-# NOUVELLE VERSION (SQLAlchemy Core)
-# ---------------------------
-
 from sqlalchemy import (
     create_engine,
     MetaData,
@@ -41,6 +8,7 @@ from sqlalchemy import (
     Float,
     ForeignKey
 )
+from sqlalchemy import UniqueConstraint
 
 engine = create_engine("sqlite:///cagnotte.db", echo=True)
 metadata = MetaData()
@@ -59,7 +27,8 @@ depense_table = Table(
     Column("cagnotte_id", Integer, ForeignKey("CAGNOTTE.id")),
     Column("participant", String),
     Column("montant", Float),
-    Column("date", String)
+    Column("date", String),
+    UniqueConstraint("cagnotte_id", "participant")
 )
 
 def init_db():

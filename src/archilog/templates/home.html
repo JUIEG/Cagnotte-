@@ -5,23 +5,32 @@
     <title>Accueil - Cagnotte</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
-    <h1>Créer une cagnotte</h1>
-    <form action="/create" method="post">
-        <input name="nom" placeholder="Nom de la cagnotte" required>
-        <button type="submit">Créer</button>
-    </form>
 
-    <h2>Liste des cagnottes</h2>
-    <ul>
-        {% for cagnotte in cagnottes %}
-            <li>
-                {{ cagnotte.nom }}
-                <a href="/cagnotte/{{ cagnotte.nom }}">Voir</a>
-            </li>
-        {% else %}
-            <li>Aucune cagnotte pour l'instant.</li>
-        {% endfor %}
-    </ul>
+<body>
+
+<h1>Créer une cagnotte</h1>
+
+{% if message %}
+<p style="color:red">{{ message }}</p>
+{% endif %}
+
+<form action="/create" method="post">
+    <input name="nom" placeholder="Nom de la cagnotte" required>
+    <button type="submit">Créer</button>
+</form>
+
+<h2>Liste des cagnottes</h2>
+
+<ul>
+{% for cagnotte in cagnottes %}
+    <li>
+        {{ cagnotte.nom }}
+        <a href="/cagnotte/{{ cagnotte.nom }}">Voir</a>
+    </li>
+{% else %}
+    <li>Aucune cagnotte pour l'instant.</li>
+{% endfor %}
+</ul>
+
 </body>
 </html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Calcul partage</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<h1>📊 Calcul du partage - {{ cagnotte.nom }}</h1>
+
+{% if total is not none %}
+
+<div class="card">
+<p><strong>Total dépensé :</strong> {{ total }} €</p>
+<p><strong>Part par personne :</strong> {{ parts }} €</p>
+</div>
+
+<h2>Résultat</h2>
+
+<table>
+<tr>
+<th>Participant</th>
+<th>Situation</th>
+</tr>
+
+{% for ligne in resultat %}
+<tr>
+<td>{{ ligne.split()[0] }}</td>
+<td>{{ ligne }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+{% else %}
+<p>Aucune dépense.</p>
+{% endif %}
+
+<br>
+<a href="/cagnotte/{{ cagnotte.nom }}">⬅ Retour</a>
+
+</body>
+</html>

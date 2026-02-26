@@ -1,13 +1,16 @@
 import click
 from datetime import date
-from db import init_db
-from domain import (
-    create_cagnotte, supprimer_cagnotte,
-    ajouter_depense, supprimer_depense,
-    calculer, liste
-)
-from domain import supprimer_depense as supprimer_depense_domain
 
+from archilog.db import init_db
+from archilog.domain import (
+    create_cagnotte,
+    supprimer_cagnotte,
+    ajouter_depense,
+    supprimer_depense,
+    calculer,
+    liste,
+)
+from archilog.domain import supprimer_depense as supprimer_depense_domain
 @click.group()
 def cli():
     init_db()
@@ -53,21 +56,15 @@ def calcul(cagnotte):
     for ligne in resultat:
         click.echo(ligne)
 
+from archilog.domain import liste as liste_domain
+
 @cli.command()
 @click.argument("cagnotte")
-
 def liste(cagnotte):
-    """Lister toutes les dépenses d'une cagnotte"""
-    from repository import get_cagnotte_id, get_depenses_detail
+    depenses = liste_domain(cagnotte)
 
-    row = get_cagnotte_id(cagnotte)
-    if not row:
-        click.echo("Cagnotte introuvable")
-        return
-
-    depenses = get_depenses_detail(row[0])
     if not depenses:
-        click.echo("Aucune dépense pour cette cagnotte")
+        click.echo("Cagnotte introuvable ou aucune dépense")
         return
 
     click.echo(f"Dépenses pour la cagnotte '{cagnotte}':")
